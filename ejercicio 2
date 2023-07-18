@@ -1,0 +1,52 @@
+////////////////////////////////////////////////////////////
+Ejercicio 2
+Aplicando bisección, resolver un polinomio de grado “n”
+Entrada: Polinomio de grado “n”.
+Salida: Las raíces o ceros del polinomio
+///////////////////////////////////////////////////////////
+
+syms('x');
+f=input('INGRESE UNA FUNCION: ');
+f=inline(f);
+%-----------METODO BUSCA---------------
+Li=input('\ningrese el limite inferior: ');
+Ls=input('\ningrese el limite superior: ');
+if Li>=Ls
+    fprintf('Error flaco\n');
+else
+    H=input('Ingrese la amplitud: ');
+    while Li<Ls
+        A=Li;B=Li+H;
+        while f(A)*f(B)>0 && B<Ls
+            A=B; B=A+H;
+        end
+        if B>Ls
+            fprintf('No existe solucion entre %5.2f y %5.2f  \n',Li,Ls);
+            break;
+        else 
+            if f(A)*f(B)==0
+                if f(A)==0
+                    fprintf('La solucion es %5.2f',A);
+                else
+                    fprintf('La solucion es %5.2f',B);
+                end
+            else
+                Li=B;
+                    fprintf('Existe solucion entre %5.2f y %5.2f \n',A,B);
+                    %---------METODO DE BISECCION-------------
+                        C=(A+B)/2;
+                        while abs(f(C))>10^(-12)
+                           if f(A)*f(C)>0
+                              A=C;
+                           else
+                              B=C;
+                           end
+                              C=(A+B)/2;
+                         end
+                    %----------------------------------------- 
+                    fprintf('una raiz es: %5.2f\n',C);
+            end
+        end
+    end
+end
+%--------------------------------------
