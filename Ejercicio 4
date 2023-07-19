@@ -1,0 +1,25 @@
+////////////////////////////////////////
+%ejercicio 4
+Calcular la raíz enésima de "𝑎𝑎"
+Entrada: índice de la raíz “n” y el número “a”
+Salida: √�
+//////////////////////////////////////////
+
+
+%-------INGRESO DE VALORES------------
+numero = input('Ingrese el número de la dentro de la raiz\n');
+indice = input('Ingrese el indice de la raiz:\n');
+%-------------------------------------
+f=@(x) (x.^indice)-numero;
+df=@(x) (indice*x^(indice-1));
+%------valor cercano a la izquierda-------
+v = input('ingrese un valor que al elevarlo al indice pedido este cerca al numero dentro de la raiz\n');
+%-----------------------------------------
+i=0;
+xi=v;
+while i<80
+   xf= xi-((f(xi))/(df(xi)));
+   xi=xf;
+   i=i+1;
+end
+fprintf('la raiz es: %5.2f\n',xf);
