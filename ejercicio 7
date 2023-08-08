@@ -1,0 +1,21 @@
+clear all;
+clc;
+% Pedir al usuario que ingrese la función y los límites de la integral
+syms x;
+f=input('Ingrese una funcion');
+f=inline(f);
+a = input('Ingrese el límite inferior (a): ');
+b = input('Ingrese el límite superior (b): ');
+
+% Longitud de cada subintervalo
+h = (b - a) / 3;
+
+% Calcular el valor aproximado de la integral usando la regla de Simpson 3/8
+sumaf = 0;
+sumaf = sumaf + f(a);
+sumaf = sumaf + 3*f(a+1*h);
+sumaf = sumaf + 3*f(a+2*h);
+sumaf = sumaf + f(b);
+area = (3/8)*(h)*(sumaf);
+% Mostrar el resultado
+fprintf('Valor aproximado de la integral definida: %5.3f\n', area);
