@@ -5,48 +5,48 @@ Entrada: Polinomio de grado “n”.
 Salida: Las raíces o ceros del polinomio
 ///////////////////////////////////////////////////////////
 
-syms('x');
+syms x;
 f=input('INGRESE UNA FUNCION: ');
 f=inline(f);
-%-----------METODO BUSCA---------------
-Li=input('\ningrese el limite inferior: ');
-Ls=input('\ningrese el limite superior: ');
-if Li>=Ls
-    fprintf('Error flaco\n');
+x1=input('Ingrese el limite inferior: ');
+x2=input('Ingrese el limite superior: ');
+if x1>x2
+    fprintf('Error, flac@');
 else
-    H=input('Ingrese la amplitud: ');
-    while Li<Ls
-        A=Li;B=Li+H;
-        while f(A)*f(B)>0 && B<Ls
-            A=B; B=A+H;
+    h=input('Ingrese la amplitud: ');
+    a=x1;b=a+h;
+    while b<=x2
+        while f(a)*f(b)>0 && b<=x2
+            a=b;b=a+h;
         end
-        if B>Ls
-            fprintf('No existe solucion entre %5.2f y %5.2f  \n',Li,Ls);
-            break;
-        else 
-            if f(A)*f(B)==0
-                if f(A)==0
-                    fprintf('La solucion es %5.2f',A);
+        if b>x2
+            if f(x2)==0
+                fprintf('Una raiz es: %5.4f\n',x2);
+            else
+                fprintf('No se encontro alguna u otra solucion');   
+            end
+        else
+            if f(a)*f(b)==0
+                if f(a)==0
+                    fprintf('Una raiz es: %5.2f\n',a);
+                    a=b;b=a+h;
                 else
-                    fprintf('La solucion es %5.2f',B);
+                    fprintf('Una raiz es: %5.2f\n',b);
+                    a=b+0.0001;b=a+h;
                 end
             else
-                Li=B;
-                    fprintf('Existe solucion entre %5.2f y %5.2f \n',A,B);
-                    %---------METODO DE BISECCION-------------
-                        C=(A+B)/2;
-                        while abs(f(C))>10^(-12)
-                           if f(A)*f(C)>0
-                              A=C;
-                           else
-                              B=C;
-                           end
-                              C=(A+B)/2;
-                         end
-                    %----------------------------------------- 
-                    fprintf('una raiz es: %5.2f\n',C);
+                c=(a+b)/2;
+                while abs(f(c))>0.00000001
+                    if f(a)*f(c)>0
+                        a=c;
+                    else
+                        b=c;
+                    end
+                    c=(a+b)/2;
+                end
+                fprintf('una raiz: %5.4f\n',c)
+                a=b;b=a+h;
             end
         end
     end
 end
-%--------------------------------------
