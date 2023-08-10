@@ -2,14 +2,36 @@
              EJERCICIO 1
 --------------------------------------
 
-x1 = input("ingrese el limite inferior");
-x2 = input("ingrese el limite superior");
-funcion = @(x)(1/sqrt(2*pi))*(exp(-(x^2)/2));
-dif_x = (x2-x1)/10000;
-y=0;
-for i=1:1:10000
-   punto = x1+dif_x*(i-1);
-   y=y+funcion(punto);
+clc;
+x1 = input("ingrese el limite inferior: ");
+x2 = input("ingrese el limite superior: ");
+f = @(x)(1/sqrt(2*pi))*(exp(-(x^2)/2));
+op=input('digite para calcular: 1 (cola izquierda), 2(Cola derecha), 3(area entre los puntos ingresados)');
+switch op
+    case 1
+        base = (x1+100)/100000;
+        suma=0;
+        for i=0:1:1000
+            suma=suma+f(-100+i*base);
+        end
+        area=suma*base;
+        fprintf("Cola izquierda: %5.5f",area);
+    case 2
+        base = (100-x2)/100000;
+        suma=0;
+        for i=0:1:100000
+            suma=suma+f(x2+i*base);
+        end
+        area=suma*base;
+        fprintf("Cola derecha: %5.5f",area);
+    case 3
+        base = (x2-x1)/100000;
+        suma=0;
+        for i=0:1:100000
+            suma=suma+f(x1+i*base);
+        end
+        area=suma*base;
+        fprintf("area entre los puntos %5.2f a %5.2f: %5.5f",x1,x2,area);
+    otherwise
+        fprintf('Digite un valor correcto');
 end
-area = dif_x*y;
-fprintf("Area que encierra el intervalo [%d,%d] : %5.2f",x1,x2,area);
