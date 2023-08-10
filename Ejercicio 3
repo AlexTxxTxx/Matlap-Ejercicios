@@ -5,49 +5,52 @@ Entrada: Polinomio de grado “n”.
 Salida: Las raíces o ceros del polinomio
 //////////////////////////////////////////////////////////
 
-fprintf('REGULA FALSI\n');
-syms('x');
-f=input('INGRESE UNA FUNCION: ');
+syms x;
+f=input('ingrese una funcion: ');
 f=inline(f);
-%-----------METODO BUSCA---------------
-Li=input('\ningrese el limite inferior: ');
-Ls=input('\ningrese el limite superior: ');
-if Li>=Ls
-    fprintf('Error flaco\n');
+%ingresar un intervalo que encierre las soluciones
+x1=input('ingrese el limite inferior');
+x2=input('ingrese el limite superior');
+
+if x1>x2
+    fprintf('error');
 else
-    H=input('Ingrese la amplitud: ');
-    while Li<Ls
-        A=Li;B=Li+H;
-        while f(A)*f(B)>0 && B<Ls
-            A=B; B=A+H;
-        end
-        if B>Ls
-            fprintf('No existe solucion entre %5.2f y %5.2f  \n',Li,Ls);
-            break;
-        else 
-            if f(A)*f(B)==0
-                if f(A)==0
-                    fprintf('La solucion es %5.2f',A);
-                else
-                    fprintf('La solucion es %5.2f',B);
-                end
+    h=input('ingrese la amplitud');
+    a=x1; b=a+h;
+    
+  while b<=x2
+    while f(a)*f(b)>0 && b<=x2
+           a=b;b=a+h;     
+    end
+    if b>x2
+        if f(x2)==0
+            fprintf('una raiz es: %5.2f',x2);
+        else
+            fprintf(' no se a encontrado alguna u otra solucion ');
+        end    
+    else
+        if f(a)*f(b) == 0
+            if f(a)==0
+                fprintf('una raiz es : %5.2f\n',a);
+                a=b; b=a+h;
             else
-                Li=B;
-                    fprintf('Existe solucion entre %5.2f y %5.2f \n',A,B);
-                    %---------METODO DE REGULA FALSI-------------
-                        C=(A*f(B)-B*f(A))/(f(B)-f(A));
-                            while abs(f(C))>10^(-12)
-                                if f(A)*f(C)>0
-                                    A=C;
-                                else
-                                    B=C;
-                                end
-                                C=(A*f(B)-B*f(A))/(f(B)-f(A));
-                            end
-                    %----------------------------------------- 
-                    fprintf('una raiz es: %5.2f\n',C);
+                fprintf('una raiz es : %5.2f\n',b);
+                a=b+0.0001; b=a+h;
             end
+        else 
+            %-----REGULA FALSI--------
+            c=(a*f(b)-b*f(a))/(f(b)-f(a));
+            while abs(f(c))>10^(-12)
+             if f(a)*f(c)>0
+              a=c;
+             else
+              b=c;
+             end
+              c=(a*f(b)-b*f(a))/(f(b)-f(a));
+            end
+            fprintf('una raiz es: %5.4f\n',c);
+            a=b;b=a+h;
         end
     end
+  end
 end
-%--------------------------------------
