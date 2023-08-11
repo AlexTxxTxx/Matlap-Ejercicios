@@ -1,0 +1,20 @@
+-----------------------
+     Ejercicio 8
+-----------------------
+
+syms x;
+f=input('Ingresa una funcion: ','s');
+x1=input('digite el limite inferior: ');
+x2=input('digite el limite superior: ');
+if x1>x2
+    fprintf('error');
+else
+    base=(x2-x1)/1000;
+    a1=f(x1)+f(x2);
+    a2=0;
+    for i=1:999
+        a2=a2+2*(f(x1+i*base));
+    end
+    area=(base/2)*(a1+a2);
+    fprintf('El area aproximada es: %5.4f',area);
+end
