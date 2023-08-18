@@ -15,15 +15,19 @@ residuo= mod(n,2);
 if (residuo==0 && a<0)
     fprintf('error');
 else
-    numero=a;
-    while numero^n>a
-        numero = numero - 1;
+    if n<0
+        fprintf('el indice de la raiz debe ser positivo');
+    else
+        numero=a;
+        while numero^n>a
+            numero = numero - 1;
+        end
+        i=0;
+        while i<100
+        xf=numero-(f(numero)/df(numero));
+        numero=xf;
+        i=i+1;
+        end
+        fprintf('valor calculado: %5.4f',xf);
     end
-    i=0;
-    while i<100
-    xf=numero-(f(numero)/df(numero));
-    numero=xf;
-    i=i+1;
-    end
-    fprintf('valor calculado: %5.4f',xf);
 end
