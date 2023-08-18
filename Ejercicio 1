@@ -2,36 +2,30 @@
              EJERCICIO 1
 --------------------------------------
 
-clc;
+clc; clear all;
 x1 = input("ingrese el limite inferior: ");
 x2 = input("ingrese el limite superior: ");
-f = @(x)(1/sqrt(2*pi))*(exp(-(x^2)/2));
-op=input('digite para calcular: 1 (cola izquierda), 2(Cola derecha), 3(area entre los puntos ingresados)');
-switch op
-    case 1
-        base = (x1+100)/100000;
-        suma=0;
-        for i=0:1:1000
-            suma=suma+f(-100+i*base);
-        end
-        area=suma*base;
-        fprintf("Cola izquierda: %5.5f",area);
-    case 2
-        base = (100-x2)/100000;
-        suma=0;
-        for i=0:1:100000
-            suma=suma+f(x2+i*base);
-        end
-        area=suma*base;
-        fprintf("Cola derecha: %5.5f",area);
-    case 3
-        base = (x2-x1)/100000;
-        suma=0;
-        for i=0:1:100000
-            suma=suma+f(x1+i*base);
-        end
-        area=suma*base;
-        fprintf("area entre los puntos %5.2f a %5.2f: %5.5f",x1,x2,area);
-    otherwise
-        fprintf('Digite un valor correcto');
+if x1>x2
+    fprintf('error');
+else
+    f = @(x)(1/sqrt(2*pi))*(exp(-(x^2)/2));
+    b=(x2-x1)/10000;
+    suma=0;
+    op=input('digite para calcular: 1 rectangulos por la izquierda, 2 rectangulos por la derecha');
+    switch op
+        case 1
+            for i=0:1:10000
+                suma=suma+f(x1+i*b);
+            end
+            area=suma*b;
+            fprintf("Area: %5.5f",area);
+        case 2
+            for i=0:1:100000
+                suma=suma+f(x1+(i+1)*b);
+            end
+            area=suma*b;
+            fprintf("Area: %5.5f",area);
+        otherwise
+            fprintf('Digite un valor correcto');
+    end
 end
